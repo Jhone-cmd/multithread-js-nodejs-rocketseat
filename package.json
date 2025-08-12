@@ -9,5 +9,9 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "@biomejs/biome": "2.1.2",
+    "ultracite": "5.1.2"
+  }
 }
