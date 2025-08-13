@@ -4,7 +4,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "node --trace-warnings ./index.js 000 rocketseat+",
+    "dev": "node --trace-warnings ./index.js 2 000 rocketseat+",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
