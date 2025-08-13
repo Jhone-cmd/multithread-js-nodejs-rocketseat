@@ -10,7 +10,8 @@
   "linter": {
     "rules": {
       "suspicious": {
-        "noConsole": "off"
+        "noConsole": "off",
+        "noGlobalIsFinite": "off"
       },
       "complexity": {
         "noForEach": "off"
