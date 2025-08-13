@@ -11,6 +11,12 @@
     "rules": {
       "suspicious": {
         "noConsole": "off"
+      },
+      "complexity": {
+        "noForEach": "off"
+      },
+      "nursery": {
+        "useIterableCallbackReturn": "off"
       }
     }
   }

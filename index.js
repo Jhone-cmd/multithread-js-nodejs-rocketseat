@@ -1,5 +1,10 @@
 import { createHash } from 'node:crypto'
-import { isMainThread, workerData } from 'node:worker_threads'
+import {
+  isMainThread,
+  parentPort,
+  Worker,
+  workerData,
+} from 'node:worker_threads'
 
 if (isMainThread) {
   const threads = process.argv[2]
@@ -8,8 +13,15 @@ if (isMainThread) {
 
   console.log(` threads: ${threads} / prefix: ${prefix} / input: ${input}`)
 
+  const workers = []
   for (let i = 0; i < threads; i++) {
-    new Worker(__filename, { workerdata: { prefix, input } })
+    const worker = new Worker('./index.js', { workerData: { prefix, input } })
+    worker.on('message', () => {
+      workers
+        .filter((otherWorker) => otherWorker !== worker)
+        .forEach((otherWorker) => otherWorker.terminate())
+    })
+    workers.push(worker)
   }
 } else {
   const { prefix, input } = workerData
@@ -22,4 +34,5 @@ if (isMainThread) {
     hash = createHash('sha256').update(`${input}${nonce}`).digest('hex')
     console.log(`input: ${input} / nonce: ${nonce} / hash: ${hash}`)
   } while (!hash.startsWith(prefix))
+  parentPort.postMessage('END')
 }
